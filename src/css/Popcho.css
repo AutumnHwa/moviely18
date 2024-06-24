@@ -83,7 +83,7 @@
 }
 
 .noMovies {
-  color: white; /* 하얀색으로 변경 */
+  color: black; /* 하얀색으로 변경 */
   font-size: 16px; /* 필요에 따라 크기 조정 */
   text-align: center;
   margin-top: 20px;
