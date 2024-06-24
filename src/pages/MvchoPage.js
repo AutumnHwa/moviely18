@@ -38,9 +38,15 @@ function MvchoPage() {
 
   useEffect(() => {
     const fetchMovies = async () => {
+      setLoading(true);
       try {
         console.log('Fetching movies...');
-        const response = await fetch('https://moviely.duckdns.org/api/movies?size=1000', { mode: 'cors' });
+        let url = 'https://moviely.duckdns.org/api/movies?size=1000';
+        if (selectedGenre !== '장르 전체') {
+          url = `https://moviely.duckdns.org/api/movies?genre=${genreMapping[selectedGenre]}`;
+        }
+
+        const response = await fetch(url, { mode: 'cors' });
         console.log('API 요청 성공:', response);
 
         if (!response.ok) {
@@ -55,7 +61,8 @@ function MvchoPage() {
             ...movie,
             flatrate: movie.flatrate ? movie.flatrate.split(', ') : [],
             genre: movie.genre ? movie.genre.split(', ') : [] // 장르 필드를 배열로 변환
-          }));
+          })).sort((a, b) => b.popularity - a.popularity); // 인기도를 기준으로 정렬
+          
           setMovies(processedData);
           console.log('Processed Data:', processedData); 
         } else {
@@ -70,13 +77,9 @@ function MvchoPage() {
     };
 
     fetchMovies();
-  }, []);
+  }, [selectedGenre]); // selectedGenre가 변경될 때마다 fetchMovies 호출
 
-  const filteredMovies = selectedGenre === '장르 전체' ? movies : movies.filter(movie =>
-    movie.genre.includes(genreMapping[selectedGenre])
-  );
-
-  const banners = filteredMovies.map((movie, index) => (
+  const banners = movies.map((movie, index) => (
     <MvBanner
       key={index}
       title={movie.title}
