@@ -161,8 +161,8 @@ function RecomPage() {
                         title={topMovie.title}
                         poster={topMovie.poster_path}
                         flatrate={Array.isArray(topMovie.flatrate) ? topMovie.flatrate.join(', ') : topMovie.flatrate}
-                        userId={user.id} // 사용자 ID 전달
-                        movieId={topMovie.movie_id} // 영화 ID 전달
+                        userId={user.id} 
+                        movieId={topMovie.movie_id} 
                       />
                     </div>
                   )
@@ -175,7 +175,7 @@ function RecomPage() {
                   movieItems.map((movie, index) => {
                     const genreList = movie.genre ? movie.genre.split(',').map(g => genreMapping[g.trim()]).filter(Boolean) : [];
                     const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/70x105?text=No+Image';
-                    console.log('Movie Data:', movie); // Movie 데이터 로그 출력
+                    console.log('Movie Data:', movie); 
                     return (
                       <div key={index} className="movieItem">
                         <img
