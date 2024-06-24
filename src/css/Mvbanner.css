@@ -1,3 +1,7 @@
+.popupContent p {
+  color: black; /* 텍스트 색상 검정으로 변경 */
+}
+
 .movie-banner {
   display: flex;
   flex-direction: column;
@@ -8,13 +12,12 @@
   height: 260px;
 }
 
-
 .movie-info {
   min-height: 52px;
   display: grid;
-  grid-template-columns: auto repeat(4, minmax(20px, auto)); /* 제목 + 최대 4개의 로고에 대해 동적 컬럼 배치 */
-  grid-template-rows: 20px 20px; /* 첫 번째 행은 20px, 두 번째 행(별점)은 20px의 높이 */
-  gap: 2px; /* 로고 사이의 간격 */
+  grid-template-columns: auto repeat(4, minmax(20px, auto));
+  grid-template-rows: 20px 20px;
+  gap: 2px;
   align-items: center;
   background: #2F4881;
   color: white;
@@ -24,17 +27,17 @@
 }
 
 .movie-title {
-  grid-column: 1; /* 첫 번째 열에 배치 */
-  grid-row: 1; /* 첫 번째 행에 배치 */
-  font-size: 11px; /* 폰트 크기 조정 */
-  white-space: nowrap; /* 제목이 한 줄로 표시되도록 함 */
-  overflow: hidden; /* 내용이 넘칠 경우 숨김 */
-  text-overflow: ellipsis; /* 내용이 넘칠 경우 말줄임표(...) 표시 */
-  margin-right: 5px; /* 로고와의 여백 추가 */
-} 
+  grid-column: 1;
+  grid-row: 1;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 5px;
+}
 
 .flatrate-logos {
-  grid-column: 2 / span 4; /* 로고가 두 번째 열부터 시작하여 최대 4개의 열을 차지 */
+  grid-column: 2 / span 4;
   display: flex;
   justify-content: start;
 }
@@ -42,29 +45,29 @@
 .flatrate-logo {
   width: 18px;
   height: 18px;
-  object-fit: contain; /* 이미지 비율 유지 */
+  object-fit: contain;
   margin-left: 5px;
 }
 
 .movie-rating {
-  grid-column: 1 / 5; /* 첫 번째부터 네 번째 열까지 차지 */
-  grid-row: 2; /* 두 번째 행에 배치 */
+  grid-column: 1 / 5;
+  grid-row: 2;
 }
 
 .add-button {
   font-size: 25px;
   margin-top: 5px;
   margin-left: auto;
-  background-color: transparent; /* 배경 투명 */
-  border: none; /* 테두리 제거 */
-  box-shadow: none; /* 그림자 제거 */
-  color: white; /* 텍스트 색상 하얀색 */
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  color: white;
   grid-column: 5;
   grid-row: 2;
-  justify-self: end; /* 버튼을 오른쪽 끝으로 */
+  justify-self: end;
   line-height: 1;
   padding: 4px;
-  cursor: pointer; /* 마우스 오버시 커서 변경 */
+  cursor: pointer;
 }
 
 .bannerGrid {
@@ -90,4 +93,3 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
