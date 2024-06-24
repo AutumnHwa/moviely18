@@ -50,7 +50,7 @@ function RecomPage() {
 
     const fetchRecommendations = async () => {
       try {
-        const response = await fetch('https://recsys.duckdns.org', {
+        const response = await fetch('https://moviely.duckdns.org/api/recommend', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
