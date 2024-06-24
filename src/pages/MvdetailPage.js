@@ -150,7 +150,7 @@ const MvdetailPage = () => {
 
   const validFlatrate = typeof movie.flatrate === 'string' ? movie.flatrate.split(', ').map(service => service.trim().toLowerCase()).filter(Boolean) : [];
 
-  const posterUrl = movie.poster_path ? `http://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/154x231?text=No+Image';
+  const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/154x231?text=No+Image';
 
   return (
     <div className="movie-detail-page">
@@ -163,7 +163,7 @@ const MvdetailPage = () => {
           <input type="text" className="search-bar" placeholder="검색어를 입력하세요" />
         </div>
       </header>
-      <div className="movie-info-container">
+      <div className="movie-infd-container">
         <div className="left-column">
           <h1 className="detail-movie-title">{movie.title}</h1>
           <div className="detail-rating-and-add">
