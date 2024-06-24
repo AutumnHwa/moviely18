@@ -26,8 +26,8 @@ const MvBanner = ({ title, poster, flatrate, movieId, userId }) => {
     setRating(newRating);
 
     const ratingData = {
-      user_id: userId, // 사용자 ID를 props로 받음
-      movie_id: movieId, // 영화 ID
+      user_id: userId,
+      movie_id: movieId,
       rating: parseFloat(newRating)
     };
 
@@ -73,9 +73,45 @@ const MvBanner = ({ title, poster, flatrate, movieId, userId }) => {
     setShowModal(false);
   };
 
-  const handleSaveModal = (option) => {
-    console.log("저장 옵션:", option);
+  const handleSaveModal = async (option) => {
+    const listData = {
+      user_id: userId,
+      movie_id: movieId
+    };
+
+    try {
+      let url = '';
+      if (option === 'option1') {
+        url = 'https://moviely.duckdns.org/wishlist';
+      } else if (option === 'option2') {
+        url = 'https://moviely.duckdns.org/watchedlist';
+      }
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(listData),
+      });
+
+      const responseData = await response.json();
+
+      if (response.ok) {
+        setMessage('List updated successfully!');
+      } else {
+        console.error('List update failed:', responseData);
+        setMessage('Failed to update list: ' + (responseData.message || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setMessage('Failed to update list.');
+    }
+
     setShowModal(false);
+    setTimeout(() => {
+      setMessage('');
+    }, 3000);
   };
 
   const handlePosterClick = () => {
