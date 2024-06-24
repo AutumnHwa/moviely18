@@ -6,7 +6,7 @@ import logoImage from '../logo.png';
 import { useAuth } from '../context/AuthContext'; // AuthContext import
 
 function MvchoPage() {
-  const { authToken, user, logout } = useAuth(); // AuthContext에서 authToken, user 및 logout 함수 가져오기
+  const { authToken, user, logout } = useAuth(); 
   const navigate = useNavigate();
   const genreMapping = useMemo(() => ({
     '장르 전체': 'All',
