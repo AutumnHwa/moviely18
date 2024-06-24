@@ -163,7 +163,7 @@ const MvdetailPage = () => {
           <input type="text" className="search-bar" placeholder="검색어를 입력하세요" />
         </div>
       </header>
-      <div className="movie-infd-container">
+      <div className="movie-info-container">
         <div className="left-column">
           <h1 className="detail-movie-title">{movie.title}</h1>
           <div className="detail-rating-and-add">
