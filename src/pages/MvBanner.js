@@ -32,7 +32,7 @@ const MvBanner = ({ title, poster, flatrate, movieId, userId }) => {
     };
 
     try {
-      const response = await fetch('http://43.203.39.119:8080/ratings', {
+      const response = await fetch('https://moviely.duckdns.org/ratings', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
