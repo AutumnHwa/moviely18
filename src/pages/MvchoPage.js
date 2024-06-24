@@ -43,7 +43,7 @@ function MvchoPage() {
         console.log('Fetching movies...');
         let url = 'https://moviely.duckdns.org/api/movies?size=1000';
         if (selectedGenre !== '장르 전체') {
-          url = `https://moviely.duckdns.org/api/movies?size=100&genre=${genreMapping[selectedGenre]}`;
+          url = `https://moviely.duckdns.org/api/movies?size=102&genre=${genreMapping[selectedGenre]}`;
         }
 
         const response = await fetch(url, { mode: 'cors' });
@@ -61,7 +61,7 @@ function MvchoPage() {
             ...movie,
             flatrate: movie.flatrate ? movie.flatrate.split(', ') : [],
             genre: movie.genre ? movie.genre.split(', ') : [] 
-          })).sort((a, b) => b.popularity - a.popularity); 
+          })).sort((a, b) => new Date(b.release_date) - new Date(a.release_date)); // 최신순으로 정렬
           
           setMovies(processedData);
           console.log('Processed Data:', processedData); 
