@@ -15,19 +15,18 @@ const flatrateLogos = {
   'wavve': wavveLogo
 };
 
-const MvBanner = ({ title, poster, flatrate, movieId }) => {
+const MvBanner = ({ title, poster, flatrate, movieId, userId }) => {
   const [rating, setRating] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
-  const userId = 20; // 사용자 ID를 하드코딩
 
   const handleStarClick = async (index) => {
     const newRating = index + 1;
     setRating(newRating);
 
     const ratingData = {
-      user_id: userId, // 하드코딩된 사용자 ID 사용
+      user_id: userId, // 사용자 ID를 props로 받음
       movie_id: movieId, // 영화 ID
       rating: parseFloat(newRating)
     };
