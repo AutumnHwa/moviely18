@@ -84,13 +84,13 @@ const MvBanner = ({ title, poster, flatrate, movieId, userId }) => {
 
   const validFlatrate = typeof flatrate === 'string' ? flatrate.split(', ').map(service => service.trim().toLowerCase()).filter(Boolean) : [];
 
-  console.log('Poster URL:', poster ? `http://image.tmdb.org/t/p/w500${poster}` : 'https://via.placeholder.com/154x231?text=No+Image');
+  const posterUrl = poster ? `https://image.tmdb.org/t/p/w500${poster}` : 'https://via.placeholder.com/154x231?text=No+Image'; // HTTP를 HTTPS로 변경
+
+  console.log('Poster URL:', posterUrl);
 
   validFlatrate.forEach(service => {
     console.log(`Service: ${service}, URL: ${flatrateLogos[service]}`);
   });
-
-  const posterUrl = poster ? `http://image.tmdb.org/t/p/w500${poster}` : 'https://via.placeholder.com/154x231?text=No+Image';
 
   return (
     <div className="movie-banner">
