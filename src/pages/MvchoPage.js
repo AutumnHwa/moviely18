@@ -6,7 +6,7 @@ import logoImage from '../logo.png';
 import { useAuth } from '../context/AuthContext'; // AuthContext import
 
 function MvchoPage() {
-  const { authToken, user, logout } = useAuth(); 
+  const { authToken, user, logout } = useAuth();
   const navigate = useNavigate();
   const genreMapping = useMemo(() => ({
     '장르 전체': 'All',
@@ -57,14 +57,13 @@ function MvchoPage() {
         console.log('API 응답 데이터:', data);
 
         if (data && data.content) {
-          const processedData = data.content
-            .map(movie => ({
-              ...movie,
-              flatrate: movie.flatrate ? movie.flatrate.split(', ') : [],
-              genre: movie.genre ? movie.genre.split(', ') : [],
-              release_date: new Date(movie.release_date) // 날짜 객체로 변환
-            }))
-            .sort((a, b) => b.release_date - a.release_date); // 최신순으로 정렬
+          const processedData = data.content.map(movie => ({
+            ...movie,
+            flatrate: movie.flatrate ? movie.flatrate.split(', ') : [],
+            genre: movie.genre ? movie.genre.split(', ') : []
+          })).sort((a, b) => new Date(b.release_date) - new Date(a.release_date)); // 최신순으로 정렬
+
+          console.log('Processed and Sorted Data:', processedData);
 
           setMovies(processedData);
           console.log('Processed Data:', processedData);
@@ -80,7 +79,7 @@ function MvchoPage() {
     };
 
     fetchMovies();
-  }, [selectedGenre, genreMapping]);
+  }, [selectedGenre]);
 
   const banners = movies.map((movie, index) => (
     <MvBanner
@@ -89,8 +88,8 @@ function MvchoPage() {
       poster={movie.poster_path}
       flatrate={movie.flatrate.join(', ')}
       rating={Math.round(movie.vote_average / 2)}
-      movieId={movie.id || movie.movie_id} 
-      userId={user?.id} 
+      movieId={movie.id || movie.movie_id}
+      userId={user?.id}
     />
   ));
 
@@ -144,7 +143,7 @@ function MvchoPage() {
         </div>
       </div>
       <div className="bannerGrid">
-        {loading ? <div className="loading">로딩 중…</div> : (banners.length > 0 ? banners : <div className="noMovies">선택하신 장르의 영화가 없습니다.</div>)}
+        {loading ? <div className="loading">로딩 중...</div> : (banners.length > 0 ? banners : <div className="noMovies">선택하신 장르의 영화가 없습니다.</div>)}
       </div>
     </div>
   );
