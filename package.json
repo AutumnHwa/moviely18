@@ -33,7 +33,7 @@
     "tui-calendar": "^1.15.3",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "http://54.180.50.153:8080",
+  "proxy": "https://54.180.50.153:8080",
   "scripts": {
     "start": "react-scripts start",
     "start:host": "HOST=0.0.0.0 PORT=8080 react-scripts start",
