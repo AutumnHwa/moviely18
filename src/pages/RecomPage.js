@@ -87,8 +87,7 @@ function RecomPage() {
         if (response.ok) {
           const data = await response.json();
           console.log('Fetched random movies:', data);
-          // 데이터가 배열인지 확인하고 배열로 변환
-          const moviesArray = Array.isArray(data) ? data : Object.values(data);
+          const moviesArray = data.content; // 데이터의 content 배열에 접근
           setRandomMovies(shuffleArray(moviesArray).slice(0, 10));
         } else {
           console.error('Failed to fetch random movies:', response.statusText);
@@ -161,8 +160,8 @@ function RecomPage() {
                         title={topMovie.title}
                         poster={topMovie.poster_path}
                         flatrate={Array.isArray(topMovie.flatrate) ? topMovie.flatrate.join(', ') : topMovie.flatrate}
-                        userId={user.id} 
-                        movieId={topMovie.movie_id} 
+                        userId={user.id} // 사용자 ID 전달
+                        movieId={topMovie.movie_id} // 영화 ID 전달
                       />
                     </div>
                   )
@@ -175,7 +174,7 @@ function RecomPage() {
                   movieItems.map((movie, index) => {
                     const genreList = movie.genre ? movie.genre.split(',').map(g => genreMapping[g.trim()]).filter(Boolean) : [];
                     const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : 'https://via.placeholder.com/70x105?text=No+Image';
-                    console.log('Movie Data:', movie); 
+                    console.log('Movie Data:', movie); // Movie 데이터 로그 출력
                     return (
                       <div key={index} className="movieItem">
                         <img
