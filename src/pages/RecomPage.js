@@ -8,6 +8,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import MvBanner from './MvBanner';
 import '../css/RecomPage.css';
 import logoImage from '../logo.png';
+import { useAuth } from '../context/AuthContext'; // AuthContext import
 
 const genreMapping = {
   '28': '액션',
@@ -32,6 +33,7 @@ const genreMapping = {
 };
 
 function RecomPage() {
+  const { authToken, user, logout } = useAuth(); 
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('recommendations');
@@ -39,17 +41,22 @@ function RecomPage() {
   const [topMovie, setTopMovie] = useState(null);
   const [movieItems, setMovieItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const userId = localStorage.getItem('userId'); // 사용자 ID를 localStorage에서 가져옴
 
   useEffect(() => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
     const fetchRecommendations = async () => {
       try {
         const response = await fetch('https://moviely.duckdns.org/api/recommend', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${authToken}`,
           },
-          body: JSON.stringify({ user_id: userId }),
+          body: JSON.stringify({ user_id: user.id }),
         });
 
         if (response.ok) {
@@ -91,7 +98,7 @@ function RecomPage() {
 
     fetchRecommendations();
     fetchRandomMovies();
-  }, [userId]);
+  }, [authToken, user, navigate]);
 
   const shuffleArray = (array) => {
     let shuffled = array.slice();
@@ -123,7 +130,7 @@ function RecomPage() {
           검색
         </button>
       </div>
-      <div className="greetingText">Autumn님을 위한 취향저격 영화를 찾아봤어요.</div>
+      <div className="greetingText">{user?.name}님을 위한 취향저격 영화를 찾아봤어요.</div>
       <div className="tabButtons">
         <button
           className={activeTab === 'recommendations' ? 'tabButton active' : 'tabButton'}
@@ -152,7 +159,7 @@ function RecomPage() {
                         title={topMovie.title}
                         poster={topMovie.poster_path}
                         flatrate={Array.isArray(topMovie.flatrate) ? topMovie.flatrate.join(', ') : topMovie.flatrate}
-                        userId={userId} // 사용자 ID 전달
+                        userId={user.id} // 사용자 ID 전달
                         movieId={topMovie.movie_id} // 영화 ID 전달
                       />
                     </div>
@@ -203,7 +210,7 @@ function RecomPage() {
                           title={movie.title}
                           poster={posterUrl}
                           flatrate={Array.isArray(movie.flatrate) ? movie.flatrate.join(', ') : movie.flatrate}
-                          userId={userId} // 사용자 ID 전달
+                          userId={user.id} // 사용자 ID 전달
                           movieId={movie.movie_id} // 영화 ID 전달
                         />
                       </div>
