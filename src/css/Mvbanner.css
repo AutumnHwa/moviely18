@@ -8,7 +8,6 @@
   height: 260px;
 }
 
-
 .movie-info {
   min-height: 52px;
   display: grid;
@@ -31,7 +30,7 @@
   overflow: hidden; /* 내용이 넘칠 경우 숨김 */
   text-overflow: ellipsis; /* 내용이 넘칠 경우 말줄임표(...) 표시 */
   margin-right: 5px; /* 로고와의 여백 추가 */
-} 
+}
 
 .flatrate-logos {
   grid-column: 2 / span 4; /* 로고가 두 번째 열부터 시작하여 최대 4개의 열을 차지 */
@@ -85,9 +84,28 @@
   color: gold;
 }
 
+.popupContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popupContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  color: black; /* 글씨 색상을 까만색으로 변경 */
+}
+
 @media (max-width: 720px) {
   .bannerGrid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
