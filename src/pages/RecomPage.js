@@ -87,7 +87,9 @@ function RecomPage() {
         if (response.ok) {
           const data = await response.json();
           console.log('Fetched random movies:', data);
-          setRandomMovies(shuffleArray(data).slice(0, 10));
+          // 데이터가 배열인지 확인하고 배열로 변환
+          const moviesArray = Array.isArray(data) ? data : Object.values(data);
+          setRandomMovies(shuffleArray(moviesArray).slice(0, 10));
         } else {
           console.error('Failed to fetch random movies:', response.statusText);
         }
