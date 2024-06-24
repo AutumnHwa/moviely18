@@ -43,7 +43,7 @@ function MvchoPage() {
         console.log('Fetching movies...');
         let url = 'https://moviely.duckdns.org/api/movies?size=1000';
         if (selectedGenre !== '장르 전체') {
-          url = `https://moviely.duckdns.org/api/movies?genre=${genreMapping[selectedGenre]}`;
+          url = `https://moviely.duckdns.org/api/movies?size=100&genre=${genreMapping[selectedGenre]}`;
         }
 
         const response = await fetch(url, { mode: 'cors' });
@@ -60,8 +60,8 @@ function MvchoPage() {
           const processedData = data.content.map(movie => ({
             ...movie,
             flatrate: movie.flatrate ? movie.flatrate.split(', ') : [],
-            genre: movie.genre ? movie.genre.split(', ') : [] // 장르 필드를 배열로 변환
-          })).sort((a, b) => b.popularity - a.popularity); // 인기도를 기준으로 정렬
+            genre: movie.genre ? movie.genre.split(', ') : [] 
+          })).sort((a, b) => b.popularity - a.popularity); 
           
           setMovies(processedData);
           console.log('Processed Data:', processedData); 
@@ -77,7 +77,7 @@ function MvchoPage() {
     };
 
     fetchMovies();
-  }, [selectedGenre]); // selectedGenre가 변경될 때마다 fetchMovies 호출
+  }, [selectedGenre]);
 
   const banners = movies.map((movie, index) => (
     <MvBanner
@@ -86,8 +86,8 @@ function MvchoPage() {
       poster={movie.poster_path}
       flatrate={movie.flatrate.join(', ')}
       rating={Math.round(movie.vote_average / 2)}
-      movieId={movie.id || movie.movie_id} // 영화 ID 전달 (영화 ID가 'id' 또는 'movie_id'인지 확인)
-      userId={user?.id} // 사용자 ID 전달
+      movieId={movie.id || movie.movie_id} 
+      userId={user?.id} 
     />
   ));
 
