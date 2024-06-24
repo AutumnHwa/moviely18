@@ -43,7 +43,7 @@ function MvchoPage() {
         console.log('Fetching movies...');
         let url = 'https://moviely.duckdns.org/api/movies?size=1000';
         if (selectedGenre !== '장르 전체') {
-          url = `https://moviely.duckdns.org/api/movies?size=102&genre=${genreMapping[selectedGenre]}`;
+          url = `https://moviely.duckdns.org/api/movies?size=100&genre=${genreMapping[selectedGenre]}`;
         }
 
         const response = await fetch(url, { mode: 'cors' });
@@ -57,14 +57,17 @@ function MvchoPage() {
         console.log('API 응답 데이터:', data);
 
         if (data && data.content) {
-          const processedData = data.content.map(movie => ({
-            ...movie,
-            flatrate: movie.flatrate ? movie.flatrate.split(', ') : [],
-            genre: movie.genre ? movie.genre.split(', ') : [] 
-          })).sort((a, b) => new Date(b.release_date) - new Date(a.release_date)); // 최신순으로 정렬
-          
+          const processedData = data.content
+            .map(movie => ({
+              ...movie,
+              flatrate: movie.flatrate ? movie.flatrate.split(', ') : [],
+              genre: movie.genre ? movie.genre.split(', ') : [],
+              release_date: new Date(movie.release_date) // 날짜 객체로 변환
+            }))
+            .sort((a, b) => b.release_date - a.release_date); // 최신순으로 정렬
+
           setMovies(processedData);
-          console.log('Processed Data:', processedData); 
+          console.log('Processed Data:', processedData);
         } else {
           console.error('Unexpected response format:', data);
         }
@@ -77,7 +80,7 @@ function MvchoPage() {
     };
 
     fetchMovies();
-  }, [selectedGenre]);
+  }, [selectedGenre, genreMapping]);
 
   const banners = movies.map((movie, index) => (
     <MvBanner
@@ -141,7 +144,7 @@ function MvchoPage() {
         </div>
       </div>
       <div className="bannerGrid">
-        {loading ? <div className="loading">로딩 중...</div> : (banners.length > 0 ? banners : <div className="noMovies">선택하신 장르의 영화가 없습니다.</div>)}
+        {loading ? <div className="loading">로딩 중…</div> : (banners.length > 0 ? banners : <div className="noMovies">선택하신 장르의 영화가 없습니다.</div>)}
       </div>
     </div>
   );
