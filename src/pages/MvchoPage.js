@@ -43,7 +43,7 @@ function MvchoPage() {
         console.log('Fetching movies...');
         let url = 'https://moviely.duckdns.org/api/movies?size=1000';
         if (selectedGenre !== '장르 전체') {
-          url = `https://moviely.duckdns.org/api/movies?size=100&genre=${genreMapping[selectedGenre]}`;
+          url = `https://moviely.duckdns.org/api/movies?size=102&genre=${genreMapping[selectedGenre]}`;
         }
 
         const response = await fetch(url, { mode: 'cors' });
